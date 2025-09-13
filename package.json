@@ -1,0 +1,26 @@
+{
+  "name": "document-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite-node src/api/server.ts",
+    "worker": "vite-node src/worker/index.ts",
+    "build": "tsc",
+    "start": "vite-node src/api/server.ts",
+    "test": "vitest run",
+    "test:integration": "./integration-test.sh"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.2",
+    "hono": "^4.9.7",
+    "ioredis": "^5.3.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vite": "^5.4.20",
+    "vite-node": "^3.2.4",
+    "vitest": "^2.0.5"
+  }
+}
