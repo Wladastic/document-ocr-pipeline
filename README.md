@@ -90,7 +90,7 @@ Then check the status (replace `<id>`):
 curl http://localhost:3002/documents/<id>
 ```
 
-You should see the status transition to `persisted` and validated metadata (if processing succeeds).
+You should see the status transition to `validated` with metadata (if processing succeeds).
 
 ## Notes & safety
 
