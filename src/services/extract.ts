@@ -13,7 +13,7 @@ export function extractMetadata(dtype: 'invoice' | 'receipt' | 'contract', ocr: 
     return {
       ...base,
       invoiceNumber: `INV-${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}-${Math.floor(Math.random()*10000).toString().padStart(4,'0')}`,
-      customerName: "ACME GmbH",
+      customerName: "Generic Company Name",
       total: 123.45,
       currency: "EUR",
       invoiceDate: now.toISOString().slice(0,10),
