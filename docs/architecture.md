@@ -25,8 +25,8 @@ This prototype is a compact, modular document processing pipeline designed for c
 1. Client uploads document to `POST /documents` (JSON with base64 payload)
 2. API stores file, creates Redis record with `status=uploaded`, enqueues job to Redis list
 3. Worker picks up job via `BRPOPLPUSH`, sets `status=processing`, runs OCR, extracts metadata, validates
-4. On success: `status=validated`, then `ocrText` and `metadata` saved, finally `status=persisted`
-5. On validation errors: `status=failed` and job handling depends on implementation
+4. On success: `status=validated` with `ocrText` and `metadata` saved (final success state)
+5. On validation errors: `status=failed`
 
 ## Technology Stack
 
@@ -45,5 +45,3 @@ This prototype is a compact, modular document processing pipeline designed for c
 - **Lightweight Dependencies**: Minimal external dependencies to reduce complexity and align with task requirements
 - **TypeScript Throughout**: Full type safety from API to database layer
 - **Integration Testing**: Real end-to-end tests against Docker containers, not just unit tests
-
-

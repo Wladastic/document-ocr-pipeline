@@ -128,7 +128,7 @@ if [[ "$UPLOAD_RESULT" == *'"status":"uploaded"'* ]]; then
         STATUS=$(echo "$STATUS_RESULT" | grep -o '"status":"[^"]*"' | cut -d'"' -f4)
         echo "Status check $i: $STATUS"
         
-        if [[ "$STATUS" == "persisted" ]]; then
+        if [[ "$STATUS" == "validated" ]]; then
             echo -e "${GREEN}PASS: Document processing pipeline${NC}"
             TESTS_PASSED=$((TESTS_PASSED + 1))
             
@@ -157,7 +157,7 @@ if [[ "$UPLOAD_RESULT" == *'"status":"uploaded"'* ]]; then
         fi
     done
     
-    if [[ "$STATUS" != "persisted" ]] && [[ "$STATUS" != "failed" ]]; then
+    if [[ "$STATUS" != "validated" ]] && [[ "$STATUS" != "failed" ]]; then
         echo -e "${RED}FAIL: Document processing pipeline (timeout)${NC}"
         TESTS_FAILED=$((TESTS_FAILED + 1))
     fi

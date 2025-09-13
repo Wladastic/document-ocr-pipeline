@@ -41,7 +41,7 @@ Retrieve document status and processed data.
   "id": "uuid-v4-document-id",
   "filename": "invoice-001.png",
   "dtype": "invoice",
-  "status": "persisted",
+  "status": "validated",
   "metadata": {
     "invoiceNumber": "INV-20250913-4147",
     "customerName": "ACME GmbH", 
@@ -69,13 +69,12 @@ Health check endpoint for monitoring.
 
 ## Status Flow
 
-Documents progress through these statuses:
+Documents progress through these statuses as specified in the task requirements:
 
 1. `uploaded` - Document received and queued for processing
-2. `processing` - Worker is processing the document  
-3. `validated` - OCR and metadata extraction completed successfully
-4. `persisted` - Final status, document fully processed and stored
-5. `failed` - Processing failed (validation errors, etc.)
+2. `processing` - Worker has started processing the document  
+3. `validated` - OCR and metadata extraction completed successfully (final success state)
+4. `failed` - Processing failed at any step (validation errors, OCR errors, etc.)
 
 ## Error Responses
 

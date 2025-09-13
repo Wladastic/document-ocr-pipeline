@@ -40,26 +40,31 @@ export function startWorker(): void {
 
 export async function processJob(data: ProcessJobData) {
   const { documentId, dtype } = data;
-  await persistence.updateDocument(documentId, { status: "processing" });
-  const doc = await persistence.getDocument(documentId);
-  if (!doc) throw new Error("Document not found");
-
-  // In this prototype we don't load the actual file; we simulate OCR
-  // based on the filename. Replace with a real file read in production.
-  const fakeBuffer = Buffer.from(doc.filename);
-  const ocr = await simulateOCR(fakeBuffer);
-  const extracted = extractMetadata(dtype, ocr);
+  
   try {
+    // Set status to processing when worker starts
+    await persistence.updateDocument(documentId, { status: "processing" });
+    const doc = await persistence.getDocument(documentId);
+    if (!doc) throw new Error("Document not found");
+
+    // In this prototype we don't load the actual file; we simulate OCR
+    // based on the filename. Replace with a real file read in production.
+    const fakeBuffer = Buffer.from(doc.filename);
+    const ocr = await simulateOCR(fakeBuffer);
+    const extracted = extractMetadata(dtype, ocr);
+    
+    // Validate the extracted metadata
     const validated = validateByType(dtype, extracted);
+    
+    // Update to validated status with OCR text and metadata - this is the final success state
     await persistence.updateDocument(documentId, {
       status: "validated",
       ocrText: ocr.text,
       metadata: validated,
     });
-    await persistence.updateDocument(documentId, {
-      status: "persisted",
-    });
+    
   } catch (e: any) {
+    // Set status to failed if any step fails
     await persistence.updateDocument(documentId, { status: "failed" });
     throw e;
   }

@@ -10,7 +10,7 @@ A compact TypeScript prototype of a **multi‑stage document processing pipeline
 - **Metadata extraction** for `invoice | receipt | contract`
 - **Validation** with **Zod**
 - **Persistence and Queue** with **Redis** (as suggested in task)
-- **Status**: `uploaded → processing → validated → persisted` (or `failed`)
+- **Status**: `uploaded → processing → validated` (or `failed`)
 - Query: `GET /documents/:id`
 
 ## Why these choices
@@ -122,7 +122,7 @@ npm run test:integration
 
 - Health check endpoint
 - Document upload with validation  
-- Full document processing pipeline (upload → queue → OCR → extract → validate → persist)
+- Full document processing pipeline (upload → queue → OCR → extract → validate)
 - Metadata extraction verification
 - OCR processing verification
 - Error handling (invalid requests, missing fields, 404s)

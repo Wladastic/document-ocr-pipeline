@@ -1,4 +1,4 @@
-export type DocumentStatus = 'uploaded' | 'processing' | 'validated' | 'failed' | 'persisted';
+export type DocumentStatus = 'uploaded' | 'processing' | 'validated' | 'failed';
 
 export interface UploadRequest {
   filename: string;
